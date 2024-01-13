@@ -1,78 +1,90 @@
-# This workflow will build and push a node.js application to an Azure Web App when a commit is pushed to your default branch.
-#
-# This workflow assumes you have already created the target Azure App Service web app.
-# For instructions see https://docs.microsoft.com/en-us/azure/app-service/quickstart-nodejs?tabs=linux&pivots=development-environment-cli
-#
-# To configure this workflow:
-#
-# 1. Download the Publish Profile for your Azure Web App. You can download this file from the Overview page of your Web App in the Azure Portal.
-#    For more information: https://docs.microsoft.com/en-us/azure/app-service/deploy-github-actions?tabs=applevel#generate-deployment-credentials
-#
-# 2. Create a secret in your repository named AZURE_WEBAPP_PUBLISH_PROFILE, paste the publish profile contents as the value of the secret.
-#    For instructions on obtaining the publish profile see: https://docs.microsoft.com/azure/app-service/deploy-github-actions#configure-the-github-secret
-#
-# 3. Change the value for the AZURE_WEBAPP_NAME. Optionally, change the AZURE_WEBAPP_PACKAGE_PATH and NODE_VERSION environment variables below.
-#
-# For more information on GitHub Actions for Azure: https://github.com/Azure/Actions
-# For more information on the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
-# For more samples to get started with GitHub Action workflows to deploy to Azure: https://github.com/Azure/actions-workflow-samples
-
-on:
-  push:
-    branches: [ "main" ]
-  workflow_dispatch:
-
-env:
-  AZURE_WEBAPP_NAME: your-app-name    # set this to your application's name
-  AZURE_WEBAPP_PACKAGE_PATH: '.'      # set this to the path to your web app project, defaults to the repository root
-  NODE_VERSION: '14.x'                # set this to the node version to use
-
-permissions:
-  contents: read
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
-
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ env.NODE_VERSION }}
-        cache: 'npm'
-
-    - name: npm install, build, and test
-      run: |
-        npm install
-        npm run build --if-present
-        npm run test --if-present
-
-    - name: Upload artifact for deployment job
-      uses: actions/upload-artifact@v3
-      with:
-        name: node-app
-        path: .
-
-  deploy:
-    permissions:
-      contents: none
-    runs-on: ubuntu-latest
-    needs: build
-    environment:
-      name: 'Development'
-      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
-
-    steps:
-    - name: Download artifact from build job
-      uses: actions/download-artifact@v3
-      with:
-        name: node-app
-
-    - name: 'Deploy to Azure WebApp'
-      id: deploy-to-webapp
-      uses: azure/webapps-deploy@v2
-      with:
-        app-name: ${{ env.AZURE_WEBAPP_NAME }}
-        publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-        package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>RON AI</title>
+</head>
+<body>
+    <h1>Welcome to RON AI</h1>
+    
+    <h2>ChatGPT-4: Answer Generation</h2>
+    <form>
+        <label for="question">Enter your question:</label><br>
+        <input type="text" id="question" name="question"><br><br>
+        <button type="submit">Generate Answer</button>
+    </form>
+    <button onclick="copyAnswer()">Copy Answer</button>
+    
+    <h2>DALL-E: Image Generation</h2>
+    <form>
+        <label for="image-prompt">Enter your image prompt:</label><br>
+        <input type="text" id="image-prompt" name="image-prompt"><br><br>
+        <button type="submit">Generate Image</button>
+    </form>
+    <button onclick="downloadImage()">Download Image</button>
+    
+    <h2>Vid2Seq AI: Movie and Video Generation</h2>
+    <form>
+        <label for="video-prompt">Enter your video prompt:</label><br>
+        <input type="text" id="video-prompt" name="video-prompt"><br><br>
+        <button type="submit">Generate Video</button>
+    </form>
+    <button onclick="payForLongerVideo()">Pay for Longer Video</button>
+    <button onclick="downloadVideo()">Download Video</button>
+    
+    <h2>NLP Music Generation</h2>
+    <form>
+        <label for="music-prompt">Enter your music prompt:</label><br>
+        <input type="text" id="music-prompt" name="music-prompt"><br><br>
+        <button type="submit">Generate Music</button>
+    </form>
+    <button onclick="payForMoreFrequentMusic()">Pay for More Frequent Music</button>
+    <button onclick="downloadMusic()">Download Music</button>
+    
+    <h2>BigGAN Image Enhancement</h2>
+    <form>
+        <label for="image-upload">Upload your image:</label><br>
+        <input type="file" id="image-upload" name="image-upload"><br><br>
+        <label for="image-prompt">Enter your image prompt:</label><br>
+        <input type="text" id="image-prompt" name="image-prompt"><br><br>
+        <button type="submit">Enhance Image</button>
+    </form>
+    <button onclick="downloadEnhancedImage()">Download Enhanced Image</button>
+    
+    <h2>Payment and Subscription</h2>
+    <p>To access all features and remove watermarks, please sign in with your Google, Apple, or Amazon account.</p>
+    <p>All payments will be processed through your connected Google, Apple, or Amazon account.</p>
+    <p>Free access is provided for the Google Account "restorationmichael3@gmail.com" and any Google Account named "Kerry Osaenwe".</p>
+    <p>Premium access for all features can be unlocked for $35, with a subscription that expires after one year.</p>
+    <p>If you prefer a monthly payment plan, the prices will be divided by 10, and the subscription will expire after one month.</p>
+    
+    <script>
+        function copyAnswer() {
+            // Code to copy the generated answer
+        }
+        
+        function downloadImage() {
+            // Code to download the generated image
+        }
+        
+        function payForLongerVideo() {
+            // Code to initiate payment for longer video duration
+        }
+        
+        function downloadVideo() {
+            // Code to download the generated video
+        }
+        
+        function payForMoreFrequentMusic() {
+            // Code to initiate payment for more frequent music generation
+        }
+        
+        function downloadMusic() {
+            // Code to download the generated music
+        }
+        
+        function downloadEnhancedImage() {
+            // Code to download the enhanced image
+        }
+    </script>
+</body>
+</html>
